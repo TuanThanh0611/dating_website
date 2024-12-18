@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from user_service.apps.users.services import UserService
+from .services import UserService
 
 # Create your views here.
 @csrf_exempt
@@ -36,12 +36,12 @@ def register_user(request):
 
 
 import json
-from user_service.apps.users.models import User
+from .models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
 import bcrypt
-from user_service.apps.users.services import JWTService
+from.services import JWTService
 
 @csrf_exempt
 def login_user(request):
@@ -79,4 +79,35 @@ def login_user(request):
             return JsonResponse({"success": False, "error": "An error occurred: " + str(e)}, status=500)
 
     # Nếu không phải POST request, trả về lỗi method not allowed
+    return JsonResponse({"success": False, "error": "Invalid request method."}, status=405)
+
+
+from .models import User
+@csrf_exempt
+def list_users(request):
+    """
+    View để lấy danh sách tất cả người dùng.
+    """
+    if request.method == "GET":
+        # Lấy tất cả user từ database
+        users = User.objects.all()
+
+        # Chuyển đổi dữ liệu người dùng thành JSON
+        users_data = [
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "phone_number": getattr(user, "phone_number", None),  # Nếu có field phone_number
+                "is_active": user.is_active,
+            }
+            for user in users
+        ]
+
+        # Trả về dữ liệu dưới dạng JSON
+        return JsonResponse({"success": True, "users": users_data}, status=200)
+
+    # Nếu request không phải GET, trả về lỗi Method Not Allowed
     return JsonResponse({"success": False, "error": "Invalid request method."}, status=405)
