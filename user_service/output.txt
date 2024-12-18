@@ -1,0 +1,45 @@
+.
+├── __init__.py
+├── manage.py
+├── output.txt
+├── requirements.txt
+├── user_service
+│   ├── apps
+│   │   ├── __init__.py
+│   │   └── users
+│   │       ├── admin.py
+│   │       ├── apps.py
+│   │       ├── __init__.py
+│   │       ├── migrations
+│   │       ├── models.py
+│   │       ├── services.py
+│   │       ├── tests.py
+│   │       └── views.py
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── venv
+    ├── bin
+    │   ├── activate
+    │   ├── activate.csh
+    │   ├── activate.fish
+    │   ├── Activate.ps1
+    │   ├── django-admin
+    │   ├── pip
+    │   ├── pip3
+    │   ├── pip3.12
+    │   ├── python -> python3.12
+    │   ├── python3 -> python3.12
+    │   ├── python3.12 -> /usr/bin/python3.12
+    │   └── sqlformat
+    ├── include
+    │   └── python3.12
+    ├── lib
+    │   └── python3.12
+    │       └── site-packages
+    ├── lib64 -> lib
+    └── pyvenv.cfg
+
+13 directories, 30 files
