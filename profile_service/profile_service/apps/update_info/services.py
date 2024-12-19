@@ -44,7 +44,7 @@ class UserService:
     @staticmethod
     def update_password(user_id, new_password):
         user = User.objects.get(id=user_id)
-        user.password = make_password(new_password)  # Hash mật khẩu trước khi lưu
+        user.password = make_password(new_password)
         user.save()
         return user
 

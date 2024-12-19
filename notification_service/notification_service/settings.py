@@ -121,3 +121,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Thời gian session hết hạn (giây). Ví dụ: 1 giờ.
+SESSION_COOKIE_AGE = 3600
+
+# Xóa session khi đóng trình duyệt.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Đặt session cookie là HTTP only.
+SESSION_COOKIE_HTTPONLY = True
+
+# Đặt domain cho session cookie.
+SESSION_COOKIE_DOMAIN = '.yourdomain.com'
+
+# Đặt tên cookie (mặc định là "sessionid").
+SESSION_COOKIE_NAME = 'my_custom_sessionid'
+
+# Kích hoạt hoặc tắt SSL cho cookie.
+SESSION_COOKIE_SECURE = True
