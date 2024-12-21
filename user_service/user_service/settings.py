@@ -78,6 +78,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'user_service.wsgi.application'
+SESSION_COOKIE_DOMAIN = '.localhost'
 
 
 # Database
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'user_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dating_website',
+        'NAME': 'dating_data',
         'USER': 'postgres',
         'PASSWORD': '34461648',
         'HOST': 'localhost',  # Hoặc địa chỉ IP của server database

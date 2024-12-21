@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'notification_service.apps.emails',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'notification_service.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dating_data',
+        'USER': 'postgres',
+        'PASSWORD': '34461648',
+        'HOST': 'localhost',  # Hoặc địa chỉ IP của server database
+   # Cổng mặc định của PostgreSQL
     }
 }
 
@@ -138,3 +143,11 @@ SESSION_COOKIE_NAME = 'my_custom_sessionid'
 
 # Kích hoạt hoặc tắt SSL cho cookie.
 SESSION_COOKIE_SECURE = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  #
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tuanthanhxp1901@gmail.com'  #
+EMAIL_HOST_PASSWORD = 'khzqszdshuhbqlre'

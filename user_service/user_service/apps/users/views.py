@@ -1,5 +1,5 @@
 from django.contrib.auth.hashers import check_password
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -69,6 +69,7 @@ def login_user(request):
 
             # Tạo JWT token hoặc trả về thông tin người dùng
             token = JWTService.generate_token(user)
+            request.session['auth_token'] = token
 
             return JsonResponse({"success": True, "token": token}, status=200)
 
@@ -111,3 +112,25 @@ def list_users(request):
 
     # Nếu request không phải GET, trả về lỗi Method Not Allowed
     return JsonResponse({"success": False, "error": "Invalid request method."}, status=405)
+
+
+from django.http import JsonResponse
+@csrf_exempt
+def get_session_status(request):
+    """
+    Kiểm tra trạng thái session của người dùng hiện tại.
+    """
+    token = request.session.get('auth_token')
+    if token:
+        return JsonResponse({"is_authenticated": True, "token": token})
+    return JsonResponse({"is_authenticated": False})
+
+@csrf_exempt
+def logout_view(request):
+    if 'auth_token' in request.session:
+        del request.session['auth_token']
+
+    # Hoặc xóa toàn bộ dữ liệu trong session
+    request.session.flush()
+
+    return HttpResponse("Đăng xuất thành công và token đã bị xóa!")

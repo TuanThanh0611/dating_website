@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'profile_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dating_website',
+        'NAME': 'dating_data',
         'USER': 'postgres',
         'PASSWORD': '34461648',
         'HOST': 'localhost',  # Hoặc địa chỉ IP của server database
@@ -126,3 +126,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
+import os
+
+MEDIA_URL = '/media/'  # Đảm bảo rằng URL này khớp với đường dẫn trong HTML
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Đảm bảo rằng thư mục này chứa các tệp media

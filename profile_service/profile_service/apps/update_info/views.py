@@ -190,3 +190,29 @@ def list_users(request):
 
     # Nếu request không phải GET, trả về lỗi Method Not Allowed
     return JsonResponse({"success": False, "error": "Invalid request method."}, status=405)
+
+
+from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser
+from rest_framework.response import Response
+from rest_framework import status
+from .models import User
+
+class UploadAvatarView(APIView):
+    parser_classes = [MultiPartParser]  # Để xử lý dữ liệu multipart (file upload)
+
+    @csrf_exempt
+    def post(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id)  # Lấy user từ ID
+            avatar_file = request.FILES.get('avatar')  # Lấy file ảnh từ request
+
+            if avatar_file:
+                user.avatar = avatar_file  # Lưu file vào trường avatar
+                user.save()
+                return Response({"avatar_url": user.avatar.url}, status=status.HTTP_200_OK)
+
+            return Response({"error": "No file uploaded"}, status=status.HTTP_400_BAD_REQUEST)
+
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)

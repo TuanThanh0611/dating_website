@@ -55,4 +55,10 @@ class UserService:
         user.save()
         return user
 
+    @staticmethod
+    def update_avatar(user_id, avatar_file):
 
+        user = User.objects.get(id=user_id)
+        user.avatar = avatar_file  # Giả sử User model có trường `avatar = models.ImageField(...)`
+        user.save()
+        return user
